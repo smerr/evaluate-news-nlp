@@ -2,6 +2,13 @@ var path = require('path')
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
 
+const dotenv = require('dotenv');
+dotenv.config();
+
+var textAPI = new cloudAPIkey({
+    application_key: process.env.API_KEY
+  });
+
 const app = express()
 
 app.use(express.static('dist'))
