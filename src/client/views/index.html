@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Test</title>
+        <title>Natural Language Processing Project</title>
         <script type="text/javascript" src="../../../dist/main.js"></script>
         <script type="text/javascript" src="/js/nameChecker.js"></script>
         <script type="text/javascript" src="/js/formHandler.js"></script>
@@ -16,31 +16,44 @@
     <body>
 
         <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
+            <div class="Title">
+                News Evaluator
             </div>
         </header>
 
         <main>
             <section>
-                <form class="" onsubmit="return handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="return handleSubmit(event)" onsubmit="return handleSubmit(event)">
+                <p>Please enter URL of the article that you want</p>
+                <form class="" onsubmit="return Client.handleSubmit(event)">
+                    <input id="url" type="text" name="input" value=""  placeholder="Enter URL here">
+                    <input type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">
                 </form>
             </section>
 
             <section>
                 <strong>Form Results:</strong>
-                <div id="results"></div>
+                <ul>
+                    <li id="poly"></li>
+                    <li id="agre"></li>
+                    <li id="sub"></li>
+                    <li id="conf"></li>
+                    <li id="iron"></li>
+                </ul>
             </section>
         </main>
 
         <footer>
-            <p>This is a footer</p>
+            <p>Made by Sarah Merrill </p>
         </footer>
 
+        <script>
+            // Check that service workers are supported
+            if ('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+           </script>
     </body>
 </html>
