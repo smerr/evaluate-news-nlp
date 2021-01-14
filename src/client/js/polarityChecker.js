@@ -1,5 +1,5 @@
 const getPolarity = (score) => {
-  let value;
+  let display;
 
   // from https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/response
   switch (score) {
@@ -22,7 +22,7 @@ const getPolarity = (score) => {
       display = "Without Sentiment";
   }
 
-  return value;
+  return display;
 };
 
 export { getPolarity };
