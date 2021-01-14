@@ -1,26 +1,24 @@
 import { getPolarity } from "./polarityChecker";
-import { checkforNewsURL } from "./textChecker";
-console.log(checkforNewsURL);
+import { checkForNewsURL } from "./textChecker";
+
 function handleSubmit(event) {
   event.preventDefault();
 
   // check what was put into the form field
   let url_input = document.getElementById("url").value;
 
-  if (Client.checkforNewsURL(url_input)) {
+  if (Client.checkForNewsURL(url_input)) {
     console.log("::: Form Submitted :::");
 
-    fetch("http://localhost:8080/text", {
-      method: "POST",
-      credentials: "same-origin",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url: url_input }),
-    })
+    //our server with the endpoint we want to hit
+    const serverURL = "http://localhost:8080/evaluateURL";
+    //the information we are sending to the endpoint
+    const params = `?url=${url_input}`;
+    const fullServerURL = `${serverURL}${params}`;
+
+    fetch(fullServerURL)
       .then((res) => res.json())
-      .then(function (res) {
+      .then((res) => {
         updateUI(res);
       });
   } else {
@@ -30,12 +28,14 @@ function handleSubmit(event) {
 }
 
 function updateUI(res) {
-  document.getElementById("pol").innerHTML =
+  document.getElementById("polarity").innerHTML =
     "Polarity: " + Client.getPolarity(res.score_tag);
-  document.getElementById("agre").innerHTML = "Agreement: " + res.agreement;
-  document.getElementById("sub").innerHTML =
+  document.getElementById("agreement").innerHTML =
+    "Agreement: " + res.agreement;
+  document.getElementById("subjectivity").innerHTML =
     "Subjectivity: " + res.subjectivity;
-  document.getElementById("conf").innerHTML = "Confidence: " + res.confidence;
-  document.getElementById("iron").innerHTML = "Irony: " + res.irony;
+  document.getElementById("confidence").innerHTML =
+    "Confidence: " + res.confidence;
+  document.getElementById("irony").innerHTML = "Irony: " + res.irony;
 }
-export { handleSubmit, getPolarity, checkforNewsURL };
+export { handleSubmit, getPolarity, checkForNewsURL };
